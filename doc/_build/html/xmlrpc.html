@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XML RPC &mdash; PyPi 0.1a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PyPi 0.1a documentation" href="index.html"/>
+        <link rel="prev" title="JSONRPC Protocol" href="jsonrpc.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyPi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1a
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pypi.html">pypi: server, protocol, module and tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ua.html">The User Agent String</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jsonrpc.html">JSONRPC Protocol</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">XML RPC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#package-querying">Package Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mirroring-support">Mirroring Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changes-to-legacy-api">Changes to Legacy API</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyPi</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>XML RPC</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xmlrpc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xml-rpc">
+<span id="xmlrpc"></span><h1>XML RPC<a class="headerlink" href="#xml-rpc" title="Permalink to this headline">¶</a></h1>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">xmlrpclib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">ServerProxy</span><span class="p">(</span><span class="s1">&#39;https://pypi.python.org/pypi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">package_releases</span><span class="p">(</span><span class="s1">&#39;roundup&#39;</span><span class="p">)</span>
+<span class="go">[&#39;1.4.10&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">release_urls</span><span class="p">(</span><span class="s1">&#39;roundup&#39;</span><span class="p">,</span> <span class="s1">&#39;1.4.10&#39;</span><span class="p">))</span>
+<span class="go">[{&#39;comment_text&#39;: &#39;&#39;,</span>
+<span class="go">  &#39;downloads&#39;: 3163,</span>
+<span class="go">  &#39;filename&#39;: &#39;roundup-1.1.2.tar.gz&#39;,</span>
+<span class="go">  &#39;has_sig&#39;: True,</span>
+<span class="go">  &#39;md5_digest&#39;: &#39;7c395da56412e263d7600fa7f0afa2e5&#39;,</span>
+<span class="go">  &#39;packagetype&#39;: &#39;sdist&#39;,</span>
+<span class="go">  &#39;python_version&#39;: &#39;source&#39;,</span>
+<span class="go">  &#39;size&#39;: 876455,</span>
+<span class="go">  &#39;upload_time&#39;: &lt;DateTime &#39;20060427T06:22:35&#39; at 912fecc&gt;,</span>
+<span class="go">  &#39;url&#39;: &#39;https://pypi.python.org/packages/source/r/roundup/roundup-1.1.2.tar.gz&#39;},</span>
+<span class="go"> {&#39;comment_text&#39;: &#39;&#39;,</span>
+<span class="go">  &#39;downloads&#39;: 2067,</span>
+<span class="go">  &#39;filename&#39;: &#39;roundup-1.1.2.win32.exe&#39;,</span>
+<span class="go">  &#39;has_sig&#39;: True,</span>
+<span class="go">  &#39;md5_digest&#39;: &#39;983d565b0b87f83f1b6460e54554a845&#39;,</span>
+<span class="go">  &#39;packagetype&#39;: &#39;bdist_wininst&#39;,</span>
+<span class="go">  &#39;python_version&#39;: &#39;any&#39;,</span>
+<span class="go">  &#39;size&#39;: 614270,</span>
+<span class="go">  &#39;upload_time&#39;: &lt;DateTime &#39;20060427T06:26:04&#39; at 912fdec&gt;,</span>
+<span class="go">  &#39;url&#39;: &#39;https://pypi.python.org/packages/any/r/roundup/roundup-1.1.2.win32.exe&#39;}]</span>
+</pre></div>
+</div>
+<div class="section" id="package-querying">
+<h2>Package Querying<a class="headerlink" href="#package-querying" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">list_packages()</span></code></dt>
+<dd>Retrieve a list of the package names registered with the package index.
+Returns a list of name strings.</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">package_releases(package_name,</span> <span class="pre">show_hidden=False)()</span></code></dt>
+<dd><p class="first">Retrieve a list of the releases registered for the given <cite>package_name</cite>,
+ordered by version.</p>
+<p class="last">The <cite>show_hidden</cite> flag is now ignored. All versions are returned.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">package_roles(package_name)</span></code></dt>
+<dd>Retrieve a list of <code class="samp docutils literal notranslate"><span class="pre">[</span><em><span class="pre">role</span></em><span class="pre">,</span> <em><span class="pre">user</span></em><span class="pre">]</span></code> for a given <cite>package_name</cite>.
+Role is either <cite>Maintainer</cite> or <cite>Owner</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">user_packages(user)</span></code></dt>
+<dd>Retrieve a list of <cite>[role, package_name]</cite> for a given <cite>user</cite>.
+Role is either <cite>Maintainer</cite> or <cite>Owner</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">release_downloads(package_name,</span> <span class="pre">release_version)</span></code></dt>
+<dd>Retrieve a list of <cite>[filename, download_count]</cite> for a given <cite>package_name</cite>
+and <cite>release_version</cite>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">release_urls(package_name,</span> <span class="pre">release_version)</span></code></dt>
+<dd><p class="first">Retrieve a list of download URLs for the given <cite>release_version</cite>.
+Returns a list of dicts with the following keys:</p>
+<ul class="last simple">
+<li>url</li>
+<li>packagetype (‘sdist’, ‘bdist_wheel’, etc)</li>
+<li>filename</li>
+<li>size</li>
+<li>md5_digest</li>
+<li>downloads</li>
+<li>has_sig</li>
+<li>python_version (required version, or ‘source’, or ‘any’)</li>
+<li>comment_text</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">release_data(package_name,</span> <span class="pre">release_version)</span></code></dt>
+<dd><p class="first">Retrieve metadata describing a specific <cite>release_version</cite>.
+Returns a dict with keys for:</p>
+<ul class="simple">
+<li>name</li>
+<li>version</li>
+<li>stable_version (always an empty string)</li>
+<li>author</li>
+<li>author_email</li>
+<li>maintainer</li>
+<li>maintainer_email</li>
+<li>home_page</li>
+<li>license</li>
+<li>summary</li>
+<li>description</li>
+<li>keywords</li>
+<li>platform</li>
+<li>download_url</li>
+<li>classifiers (list of classifier strings)</li>
+<li>requires</li>
+<li>requires_dist</li>
+<li>provides</li>
+<li>provides_dist</li>
+<li>requires_external</li>
+<li>requires_python</li>
+<li>obsoletes</li>
+<li>obsoletes_dist</li>
+<li>project_url</li>
+<li>docs_url (URL of the packages.python.org docs if they’ve been supplied)</li>
+</ul>
+<p class="last">If the release does not exist, an empty dictionary is returned.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">search(spec[,</span> <span class="pre">operator])</span></code></dt>
+<dd><p class="first">Search the package database using the indicated search <cite>spec</cite>.</p>
+<p>The <cite>spec</cite> may include any of the keywords described in the above list
+(except ‘stable_version’ and ‘classifiers’), for example:
+{‘description’: ‘spam’} will search description fields. Within the spec, a
+field’s value can be a string or a list of strings (the values within the
+list are combined with an OR), for example: {‘name’: [‘foo’, ‘bar’]}. Valid
+keys for the spec dict are listed here. Invalid keys are ignored:</p>
+<ul class="simple">
+<li>name</li>
+<li>version</li>
+<li>author</li>
+<li>author_email</li>
+<li>maintainer</li>
+<li>maintainer_email</li>
+<li>home_page</li>
+<li>license</li>
+<li>summary</li>
+<li>description</li>
+<li>keywords</li>
+<li>platform</li>
+<li>download_url</li>
+</ul>
+<p class="last">Arguments for different fields are combined using either “and” (the default)
+or “or”. Example: search({‘name’: ‘foo’, ‘description’: ‘bar’}, ‘or’). The
+results are returned as a list of dicts {‘name’: package name, ‘version’:
+package release version, ‘summary’: package release summary}</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">browse(classifiers)</span></code></dt>
+<dd>Retrieve a list of <cite>[name, version]</cite> of all releases classified with all of
+the given classifiers. <cite>classifiers</cite> must be a list of Trove classifier
+strings.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">top_packages([number])</span></code></dt>
+<dd>Retrieve the sorted list of packages ranked by number of downloads.
+Optionally limit the list to the <cite>number</cite> given.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">updated_releases(since)</span></code></dt>
+<dd>Retrieve a list of package releases made since the given timestamp. The
+releases will be listed in descending release date.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">changed_packages(since)</span></code></dt>
+<dd>Retrieve a list of package names where those packages have been changed
+since the given timestamp. The packages will be listed in descending date
+of most recent change.</dd>
+</dl>
+</div>
+<div class="section" id="mirroring-support">
+<h2>Mirroring Support<a class="headerlink" href="#mirroring-support" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">changelog(since,</span> <span class="pre">with_ids=False)()</span></code></dt>
+<dd>Retrieve a list of <cite>[name, version, timestamp, action]</cite>, or
+<cite>[name, version, timestamp, action, id]</cite> if <cite>with_ids=True</cite>, since the given
+<cite>since</cite>. All <cite>since</cite> timestamps are UTC values. The argument is a UTC integer
+seconds since the epoch.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">changelog_last_serial()</span></code></dt>
+<dd>Retrieve the last event’s serial id.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">changelog_since_serial(since_serial)</span></code></dt>
+<dd>Retrieve a list of <cite>(name, version, timestamp, action, serial)</cite> since the
+event identified by the given <cite>since_serial</cite> All timestamps are UTC
+values. The argument is a UTC integer seconds since the epoch.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">list_packages_with_serial()</span></code></dt>
+<dd>Retrieve a dictionary mapping package names to the last serial for each
+package.</dd>
+</dl>
+</div>
+<div class="section" id="changes-to-legacy-api">
+<h2>Changes to Legacy API<a class="headerlink" href="#changes-to-legacy-api" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">package_releases</span></code> The <cite>show_hidden</cite> flag is now ignored. All versions are
+returned.</p>
+<p><code class="docutils literal notranslate"><span class="pre">release_data</span></code> The <cite>stable_version</cite> flag is always an empty string. It was
+never fully supported anyway.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="jsonrpc.html" class="btn btn-neutral" title="JSONRPC Protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Simon Kennedy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1a',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pypi: server, protocol, module and tool &mdash; PyPi 0.1a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PyPi 0.1a documentation" href="index.html"/>
+        <link rel="next" title="The User Agent String" href="ua.html"/>
+        <link rel="prev" title="Welcome to PyPi’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyPi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1a
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pypi: server, protocol, module and tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-server">The Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-protocol">The Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-module">The Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-tool">The Tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#package-indexes">Package Indexes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#misc">Misc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ua.html">The User Agent String</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jsonrpc.html">JSONRPC Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xmlrpc.html">XML RPC</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyPi</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>pypi: server, protocol, module and tool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pypi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pypi-server-protocol-module-and-tool">
+<h1>pypi: server, protocol, module and tool<a class="headerlink" href="#pypi-server-protocol-module-and-tool" title="Permalink to this headline">¶</a></h1>
+<p>Under the <cite>pypi</cite> umbrella we should provide 4 elements</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="#the-server">The Server</a></dt>
+<dd>The web front end, middleware and backend to the distributions stored
+in the repository.</dd>
+<dt><a class="reference internal" href="#the-protocol">The Protocol</a></dt>
+<dd>A formal written definition of how to talk to the storage backend to
+register/upload/download distributions etc.</dd>
+<dt><a class="reference internal" href="#the-module">The Module</a></dt>
+<dd>A Python client module to interact with pypi backend using the protocol.</dd>
+<dt><a class="reference internal" href="#the-tool">The Tool</a> - pypi-cli</dt>
+<dd>A command line application to register/upload/download distributions</dd>
+</dl>
+<div class="section" id="the-server">
+<span id="id1"></span><h2>The Server<a class="headerlink" href="#the-server" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Provides a Frontend</dt>
+<dd>Allows a human to browse the index, search for packages from a friendly
+web based interface.</dd>
+<dt>Middleware</dt>
+<dd>The pypi protocol support for interaction with <a class="reference internal" href="#the-tool">The Tool</a>.</dd>
+<dt>and a Backend</dt>
+<dd>Validates uploaded distributions and stores their info in the database</dd>
+</dl>
+<ul class="simple">
+<li>The currently deployed version of PyPi is codename <code class="docutils literal notranslate"><span class="pre">pypi</span></code> available at <a class="reference external" href="https://pypi.org">https://pypi.org</a></li>
+<li>The next version is codename <code class="docutils literal notranslate"><span class="pre">warehouse</span></code> available at <a class="reference external" href="https://warehouse.pypi.org">https://warehouse.pypi.org</a></li>
+<li>A package index for the purposes testing of testing interaction with PyPi is also
+provided <a class="reference external" href="https://test.pypi.org">https://test.pypi.org</a>.</li>
+</ul>
+</div>
+<div class="section" id="the-protocol">
+<span id="id2"></span><h2>The Protocol<a class="headerlink" href="#the-protocol" title="Permalink to this headline">¶</a></h2>
+<p>Defines the communications between The Server and The Module.</p>
+<p>Uses the <a class="reference internal" href="jsonrpc.html#jsonrpc"><span class="std std-ref">JSONRPC Protocol</span></a> protocol.</p>
+<p>Legacy tools talk to the Middleware using the <a class="reference internal" href="xmlrpc.html#xmlrpc"><span class="std std-ref">XML RPC</span></a> protocol.</p>
+</div>
+<div class="section" id="the-module">
+<span id="id3"></span><h2>The Module<a class="headerlink" href="#the-module" title="Permalink to this headline">¶</a></h2>
+<p>Provides a default implementation of the protocol.</p>
+</div>
+<div class="section" id="the-tool">
+<span id="id4"></span><h2>The Tool<a class="headerlink" href="#the-tool" title="Permalink to this headline">¶</a></h2>
+<p>Allows the user to interact with pypi via the command line. The following functionality should be
+provided…</p>
+<blockquote>
+<div><ul class="simple">
+<li>search</li>
+<li>get info about a project or distribution</li>
+<li>download a distribution, sdist, wheel (and possibly docs)</li>
+<li>login</li>
+<li>add a project</li>
+<li>upload a distribution, sdist or wheel (and possibly docs)</li>
+<li>upload metadata</li>
+<li>hide a distribution</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>This would extract various bits of functionality fromm <cite>pip</cite> and <cite>twine</cite>.</li>
+<li>Only works with <code class="docutils literal notranslate"><span class="pre">sdist</span></code>s and <code class="docutils literal notranslate"><span class="pre">bdist_wheel</span></code> format distribution packages</li>
+<li>Signing is to be handled by external tools.</li>
+<li>Uses the User Agent format used by Pip</li>
+</ul>
+<div class="section" id="commands">
+<h3>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>search</dt>
+<dd><ul class="first last">
+<li>*args = search in name and summary fields</li>
+<li>**kwargs = search in named fields</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>download distribution</li>
+<li>download distribution from requirements</li>
+<li>login - only runs in an interactive session</li>
+<li>create project</li>
+<li>upload metadata</li>
+<li>upload distribution</li>
+<li>upload docs</li>
+<li>status of a distribution</li>
+<li>create cache</li>
+</ul>
+</div>
+<div class="section" id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>PYPI_REPOSITORY - Repository Name or URL</li>
+<li>PYPI_USERNAME</li>
+<li>PYPI_PASSWORD</li>
+<li>PYPI_CA_BUNDLE - A CA bundle</li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-indexes">
+<h2>Package Indexes<a class="headerlink" href="#package-indexes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>PyPi = PackageIndex(‘<a class="reference external" href="https://pypi.org/">https://pypi.org/</a>’)</li>
+<li>Warehouse = PackageIndex(‘<a class="reference external" href="https://warehouse.python.org/">https://warehouse.python.org/</a>’)</li>
+<li>LegacyPyPi = PackageIndex(‘<a class="reference external" href="https://pypi.python.org/pypi/">https://pypi.python.org/pypi/</a>’)</li>
+</ul>
+</div>
+<div class="section" id="misc">
+<h2>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Should only use https</li>
+<li>Should</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ua.html" class="btn btn-neutral float-right" title="The User Agent String" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to PyPi’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Simon Kennedy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1a',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

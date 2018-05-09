@@ -1,0 +1,116 @@
+pypi: server, protocol, module and tool
+=======================================
+
+Under the `pypi` umbrella we should provide 4 elements
+
+`The Server`_
+	The web front end, middleware and storage backend to the distributions stored
+	in the repository.
+
+`The Protocol`_
+	A formal written definition of how to talk to the storage backend to
+	register/upload/download distributions etc.
+
+`The Module`_
+	A Python client module to interact with pypi backend using the protocol.
+
+`The Tool`_ - pypi-cli
+	A command line application to register/upload/download distributions
+
+	The following functionality should be provided
+
+		* search
+		* get info about a project or distribution
+		* download a distribution, sdist, wheel (and possibly docs)
+		* login
+		* add a project
+		* upload a distribution, sdist or wheel (and possibly docs)
+		* upload metadata
+		* hide a distribution
+
+.. _The Server:
+
+The Server
+~~~~~~~~~~
+
+Provides a Frontend
+	Allows a human to browse the index, search for packages from a friendly
+	web based interface.
+
+Middleware
+	The pypi protocol support for interaction with `The Tool`_.
+
+and a Backend
+	Validates uploaded distributions and stores their info in the database
+
+The currently deployed version of PyPi is ``pypi`` and the next version is
+``warehouse``
+
+A package index for the purposes testing of testing interaction with PyPi is
+also provided ``test_pypi``.
+
+.. _The Protocol:
+
+The Protocol
+~~~~~~~~~~~~
+
+Defines the communications between The Server and The Module.
+
+Uses the :ref:`jsonrpc` protocol.
+
+Legacy tools talk to the Middleware using the :ref:`xmlrpc` protocol.
+
+.. _The Module:
+
+The Module
+~~~~~~~~~~
+
+Provides a default implementation of the protocol.
+
+.. _The Tool:
+
+The Tool
+~~~~~~~~
+
+* This would extract various bits of functionality fromm `pip` and `twine`.
+* Only works with ``sdist``\s and ``bdist_wheel`` format distribution packages
+* Signing is to be handled by external tools.
+* Uses the User Agent format used by Pip
+
+
+Commands
+--------
+
+	* search
+		* \*args = search in name and summary fields
+		* \*\*kwargs = search in named fields
+	* download distribution
+	* download distribution from requirements
+	* login - only runs in an interactive session
+	* create project
+	* upload metadata
+	* upload distribution
+	* upload docs
+	* status of a distribution
+	* create cache
+
+Environment Variables
+---------------------
+
+* PYPI_REPOSITORY - Repository Name or URL
+* PYPI_USERNAME
+* PYPI_PASSWORD
+* PYPI_CA_BUNDLE - A CA bundle
+
+Package Indexes
+~~~~~~~~~~~~~~~
+
+* PyPi = PackageIndex('https://pypi.org/')
+* Warehouse = PackageIndex('https://warehouse.python.org/')
+* LegacyPyPi = PackageIndex('https://pypi.python.org/pypi/')
+
+Misc
+~~~~
+
+* Should only use https
+* Should
