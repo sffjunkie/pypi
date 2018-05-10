@@ -36,6 +36,8 @@ Example usage::
 Package Querying
 ----------------
 
+.. note:: In the following definitions all parameters are positional
+
 :func:`list_packages`
   Retrieve a list of the package names registered with the package index.
   Returns a list of name strings.
@@ -46,19 +48,19 @@ Package Querying
 
   The `show_hidden` flag is now ignored. All versions are returned.
 
-``package_roles(package_name)``
+:func:`package_roles(package_name)`
   Retrieve a list of :samp:`[{role}, {user}]` for a given `package_name`.
   Role is either `Maintainer` or `Owner`.
 
-``user_packages(user)``
+:func:`user_packages(user)`
   Retrieve a list of `[role, package_name]` for a given `user`.
   Role is either `Maintainer` or `Owner`.
 
-``release_downloads(package_name, release_version)``
+:func:`release_downloads(package_name, release_version)`
   Retrieve a list of `[filename, download_count]` for a given `package_name`
   and `release_version`.
 
-``release_urls(package_name, release_version)``
+:func:`release_urls(package_name, release_version)`
   Retrieve a list of download URLs for the given `release_version`.
   Returns a list of dicts with the following keys:
 
@@ -72,7 +74,7 @@ Package Querying
   * python_version (required version, or 'source', or 'any')
   * comment_text
 
-``release_data(package_name, release_version)``
+:func:`release_data(package_name, release_version)`
   Retrieve metadata describing a specific `release_version`.
   Returns a dict with keys for:
 
@@ -104,7 +106,7 @@ Package Querying
 
   If the release does not exist, an empty dictionary is returned.
 
-``search(spec[, operator])``
+:func:`search(spec[, operator])`
   Search the package database using the indicated search `spec`.
 
   The `spec` may include any of the keywords described in the above list
@@ -133,20 +135,20 @@ Package Querying
   results are returned as a list of dicts {'name': package name, 'version':
   package release version, 'summary': package release summary}
 
-``browse(classifiers)``
+:func:`browse(classifiers)`
   Retrieve a list of `[name, version]` of all releases classified with all of
   the given classifiers. `classifiers` must be a list of Trove classifier
   strings.
 
-``top_packages([number])``
+:func:`top_packages([number])`
   Retrieve the sorted list of packages ranked by number of downloads.
   Optionally limit the list to the `number` given.
 
-``updated_releases(since)``
+:func:`updated_releases(since)`
   Retrieve a list of package releases made since the given timestamp. The
   releases will be listed in descending release date.
 
-``changed_packages(since)``
+:func:`changed_packages(since)`
   Retrieve a list of package names where those packages have been changed
   since the given timestamp. The packages will be listed in descending date
   of most recent change.
@@ -161,23 +163,23 @@ Mirroring Support
   `since`. All `since` timestamps are UTC values. The argument is a UTC integer
   seconds since the epoch.
 
-``changelog_last_serial()``
+:func:`changelog_last_serial()`
   Retrieve the last event's serial id.
 
-``changelog_since_serial(since_serial)``
+:func:`changelog_since_serial(since_serial)`
   Retrieve a list of `(name, version, timestamp, action, serial)` since the
   event identified by the given `since_serial` All timestamps are UTC
   values. The argument is a UTC integer seconds since the epoch.
 
-``list_packages_with_serial()``
+:func:`list_packages_with_serial()`
   Retrieve a dictionary mapping package names to the last serial for each
   package.
 
 Changes to Legacy API
 ---------------------
 
-``package_releases`` The `show_hidden` flag is now ignored. All versions are
+:func:`package_releases` The `show_hidden` flag is now ignored. All versions are
 returned.
 
-``release_data`` The `stable_version` flag is always an empty string. It was
+:func:`release_data` The `stable_version` flag is always an empty string. It was
 never fully supported anyway.
