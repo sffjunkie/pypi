@@ -12,7 +12,7 @@ Under the `pypi` umbrella we could provide 4 elements
 	search/upload/download distributions etc.
 
 `The Module`_ - pypi-module
-	A Python client module to interact with pypi backend using the protocol.
+	A Python client module to interact with pypi-server backend using the protocol.
 
 `The Tool`_ - pypi-cli
 	A command line application to search/upload/download distributions etc.
